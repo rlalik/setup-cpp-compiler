@@ -1,0 +1,67 @@
+name: "Test"
+
+on:
+  push:
+    #branches: [ master ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    #branches: [ master ]
+
+jobs:
+  test-linux-macos:
+    strategy:
+      fail-fast: false
+      matrix:
+        os-version: [ ubuntu-latest, macos-latest ]
+        compiler: [ latest, gcc-latest, gcc-9, gcc-10, g++-11, clang, clang-9, clang-11, clang++-12 ]
+        exclude:
+          - os-version: macos-latest
+            compiler: latest
+          - os-version: macos-latest
+            compiler: gcc-latest
+          - os-version: macos-latest
+            compiler: gcc
+
+    runs-on: ${{ matrix.os-version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install compiler
+        id: install_cc
+        uses: ./
+        with:
+          compiler: ${{ matrix.compiler }}
+      - name: Check compiler
+        shell: bash
+        env:
+            CC: ${{ steps.install_cc.outputs.cc }}
+            CXX: ${{ steps.install_cc.outputs.cxx }}
+        run: |
+          $CC --version
+          $CXX --version
+
+  test-win:
+    strategy:
+      fail-fast: false
+      matrix:
+        os-version: [ windows-latest ]
+        compiler: [ latest, gcc-latest, gcc-6.4.0, gcc-10.2.0, g++-11.2.0, clang, clang-8.0.0, clang-11.1.0, clang++-12.0.1 ]
+
+    runs-on: ${{ matrix.os-version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install compiler
+        id: install_cc
+        uses: ./
+        with:
+          compiler: ${{ matrix.compiler }}
+      - name: Check compiler
+        shell: bash
+        env:
+            CC: ${{ steps.install_cc.outputs.cc }}
+            CXX: ${{ steps.install_cc.outputs.cxx }}
+        run: |
+          $CC --version
+          $CXX --version
+

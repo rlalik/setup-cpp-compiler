@@ -1,0 +1,30 @@
+name: Setup C/C++ Compiler
+description: Install selected C/C++ compiler
+
+inputs:
+  compiler:
+    description: Compiler to install
+    required: false
+    default: gcc-latest
+
+outputs:
+  cc:
+    description: CC binary name
+    value: '${{ steps.install.outputs.cc }}'
+  cxx:
+    description: CXX binary name
+    value: '${{ steps.install.outputs.cxx }}'
+
+runs:
+  using: composite
+  steps:
+    - name: Install compiler
+      id: install
+      shell: bash
+      run: |
+        echo Install "${{ inputs.compiler }}" on "${{ runner.os }}"
+        bash script.sh "${{ runner.os }}" "${{ inputs.compiler }}"
+
+branding:
+  color: blue
+  icon: hexagon
