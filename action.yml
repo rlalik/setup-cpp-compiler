@@ -23,7 +23,7 @@ runs:
       shell: bash
       run: |
         echo Install "${{ inputs.compiler }}" on "${{ runner.os }}"
-        ${{ github.action_path }}/script.sh "${{ runner.os }}" "${{ inputs.compiler }}"
+        ${GITHUB_ACTION_PATH}/script.sh "${{ runner.os }}" "${{ inputs.compiler }}"
 
 branding:
   color: blue
