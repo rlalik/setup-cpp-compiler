@@ -7,7 +7,8 @@ The action requires specyfing compiler version using `compiler` input.
 Use it in your workflow like this:
 ```yml
     - name: Install compiler
-      uses: rlalik/setup-cpp-compiler@v1
+      id: install_cc
+      uses: rlalik/setup-cpp-compiler@master
       with:
         compiler: latest
 ```

@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Install compiler
         id: install_cc
-        uses: rlalik/setup-cpp-compiler@v1.0
+        uses: rlalik/setup-cpp-compiler@master
         with:
           compiler: ${{ matrix.compiler }}
       - name: Check compiler
