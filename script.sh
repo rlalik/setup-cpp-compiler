@@ -47,16 +47,16 @@ function install_compilers {
             echo sudo apt install $PKGS
             $ECHO sudo apt install $PKGS
             echo "::endgroup::"
-            echo "::set-output name=cc::$_CC$P_VER"
-            echo "::set-output name=cxx::$_CXX$P_VER"
+            echo "cc=${_CC}${P_VER}" >> $GITHUB_OUTPUT
+            echo "cxx=${_CXX}${P_VER}" >> $GITHUB_OUTPUT
         ;;
         Windows)
             echo "::group::choco install"
             echo choco upgrade $WINPKGS -y --no-progress --allow-downgrade
             $ECHO choco upgrade $WINPKGS -y --no-progress --allow-downgrade
             echo "::endgroup::"
-            echo "::set-output name=cc::$_CC"
-            echo "::set-output name=cxx::$_CXX"
+            echo "cc=${_CC}" >> $GITHUB_OUTPUT
+            echo "cxx=${_CXX}" >> $GITHUB_OUTPUT
         ;;
         macOS)
             case ${_CC}${P_VER} in
@@ -69,18 +69,18 @@ function install_compilers {
                     echo brew link $MACPKGS
                     $ECHO brew link $MACPKGS
                     echo "::endgroup::"
-                    echo "::set-output name=cc::/usr/local/bin/$_CC$P_VER"
-                    echo "::set-output name=cxx::/usr/local/bin/$_CXX$P_VER"
+                    echo "cc=/usr/local/bin/${_CC}${P_VER}" >> $GITHUB_OUTPUT
+                    echo "cxx=/usr/local/bin/${_CXX}${P_VER}" >> $GITHUB_OUTPUT
                 ;;
                 gcc)
                     echo "::warning ::For MacOS gcc must have specified version, fallback to clang"
-                    echo "::set-output name=cc::clang"
-                    echo "::set-output name=cxx::clang++"
+                    echo "cc=clang" >> $GITHUB_OUTPUT
+                    echo "cxx=clang++" >> $GITHUB_OUTPUT
                 ;;
                 clang*)
                     echo "::notice ::For MacOS compilers fallback to default system clang"
-                    echo "::set-output name=cc::clang"
-                    echo "::set-output name=cxx::clang++"
+                    echo "cc=clang" >> $GITHUB_OUTPUT
+                    echo "cxx=clang++" >> $GITHUB_OUTPUT
                 ;;
             esac
         ;;
