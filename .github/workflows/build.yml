@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         os-version: [ ubuntu-latest, macos-latest ]
-        compiler: [ latest, gcc-latest, gcc-9, gcc-10, g++-11, clang, clang-9, clang-11, clang++-12 ]
+        compiler: [ latest, gcc-latest, gcc-10, g++-11, g++-12, clang, clang-9, clang-11, clang++-12 ]
         exclude:
           - os-version: macos-latest
             compiler: latest
@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Install compiler
         id: install_cc
-        uses: rlalik/setup-cpp-compiler@master
+        uses: rlalik/setup-cpp-compiler@no_sudo
         with:
           compiler: ${{ matrix.compiler }}
       - name: Check compiler
