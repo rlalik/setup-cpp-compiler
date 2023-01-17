@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         os-version: [ ubuntu-latest, macos-latest ]
-        compiler: [ latest, gcc-latest, gcc-9, gcc-10, g++-11, clang, clang-9, clang-11, clang++-12 ]
+        compiler: [ latest, gcc-latest, gcc-10, g++-11, gcc-12, clang, clang-10, clang-11, clang++-12, clang++-14, clang++-15 ]
         exclude:
           - os-version: macos-latest
             compiler: latest
