@@ -51,7 +51,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os-version: [ macos-latest ]
+        os-version: [ macos-26, macos-15, macos-14 ]
         compiler: [ gcc, gcc-14, g++-11, clang, clang-21, clang++-14 ]
 
     runs-on: ${{ matrix.os-version }}
@@ -78,7 +78,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os-version: [ windows-latest ]
+        os-version: [ windows-2025m windows-2022 ]
         compiler: [ latest, gcc-latest, gcc-6.4.0, gcc-10.2.0, g++-11.2.0, clang, clang-8.0.0, clang-11.1.0, clang++-12.0.1 ]
 
     runs-on: ${{ matrix.os-version }}
